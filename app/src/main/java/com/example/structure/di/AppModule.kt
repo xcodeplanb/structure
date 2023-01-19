@@ -1,18 +1,15 @@
 package com.example.structure.di
 
-import android.content.Context
 import android.os.Build
 import com.example.structure.URL
 import com.google.android.datatransport.BuildConfig
 import com.example.structure.api.HeaderInterceptor
-import com.smallticket.petping.api.WebService
+import com.example.structure.api.WebService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

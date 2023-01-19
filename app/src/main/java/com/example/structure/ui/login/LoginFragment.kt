@@ -4,7 +4,7 @@
 //import com.smallticket.petping.data.vo.AgreementConfig
 //import com.smallticket.petping.data.vo.AppleLoginConfig
 //import com.smallticket.petping.data.vo.EventBus.CheckNotificationPermissionEvent
-//import com.smallticket.petping.data.vo.NaverData
+//import com.example.structure.data.vo.NaverData
 //import com.smallticket.petping.databinding.FragmentLoginBinding
 //import com.example.structure.ui.base.BaseFragment
 //import com.smallticket.petping.ui.common.dialog.PermissionDialog
