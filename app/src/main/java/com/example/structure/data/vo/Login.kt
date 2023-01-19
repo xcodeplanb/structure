@@ -1,8 +1,7 @@
-package com.smallticket.petping.data.vo
+package com.example.structure.data.vo
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.structure.data.vo.ErrorResponse
 
 /**
  * android-petping-2

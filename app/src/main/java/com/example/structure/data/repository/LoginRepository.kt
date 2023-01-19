@@ -1,10 +1,9 @@
 package com.example.structure.data.repository
 
-import com.smallticket.petping.api.WebService
+import com.example.structure.api.WebService
 import com.example.structure.data.repository.base.BaseRepository
 import android.os.Build
 import okhttp3.RequestBody
-import java.util.*
 import javax.inject.Inject
 
 /**
