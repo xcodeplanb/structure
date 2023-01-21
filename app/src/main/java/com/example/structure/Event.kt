@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.transform
 
-
 open class Event<out T>(private val content: T) {
     var hasBeenHandled = false
         private set

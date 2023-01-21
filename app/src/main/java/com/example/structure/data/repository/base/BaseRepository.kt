@@ -1,6 +1,6 @@
 package com.example.structure.data.repository.base
 
-import com.smallticket.petping.api.Resource
+import com.example.structure.api.Resource
 import com.example.structure.data.vo.CommonResponse
 import com.example.structure.data.vo.EventBus.LogoutEvent
 import kotlinx.coroutines.Dispatchers

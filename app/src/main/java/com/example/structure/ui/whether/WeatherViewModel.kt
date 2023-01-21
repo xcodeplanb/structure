@@ -1,26 +1,19 @@
-package com.example.structure.ui.login
+package com.example.structure.ui.whether
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.structure.Event
 import com.example.structure.UiState
-import com.example.structure.data.repository.LoginRepository
+import com.example.structure.data.repository.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
-/**
- * android-petping-2
- * Class: LoginViewModel
- * Created by cliff on 2022/03/10.
- *
- * Description:
- */
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class WeatherViewModel @Inject constructor() : ViewModel() {
     @Inject
-    lateinit var loginRepository: LoginRepository
+    lateinit var loginRepository: WeatherRepository
     private val _processing = MutableStateFlow(false)
     val processing = _processing.asStateFlow()
 

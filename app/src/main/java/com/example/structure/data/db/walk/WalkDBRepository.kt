@@ -1,7 +1,5 @@
 package com.example.structure.data.db.walk
 
-import com.example.structure.data.db.walk.Walk
-import com.example.structure.data.db.walk.WalkDao
 import javax.inject.Inject
 
 class WalkDBRepository @Inject constructor(private val waklDao: WalkDao) {

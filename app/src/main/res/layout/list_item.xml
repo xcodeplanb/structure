@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.structure.ui.whether.WeatherViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:paddingHorizontal="10dp">
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#bbbbbb"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/whetherIcon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Today" />
+
+        <ImageView
+            android:id="@+id/whetherIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dateText"
+            tools:src="@drawable/wi_cloud">
+
+        <TextView
+            android:id="@+id/whetherText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
+            app:layout_constraintStart_toEndOf="@+id/whetherIcon"
+            app:layout_constraintTop_toTopOf="@+id/whetherIcon"
+            tools:src="@drawable/wi_cloud"
+            tools:text="Clear" />
+
+        <TextView
+            android:id="@+id/maxTemperatureLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
+            app:layout_constraintEnd_toStartOf="@+id/maxTemperatureValue"
+            app:layout_constraintTop_toTopOf="@+id/whetherIcon"
+            tools:text="Max : " />
+
+        <TextView
+            android:id="@+id/maxTemperatureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
+            app:layout_constraintEnd_toStartOf="@+id/minTemperatureLabel"
+            app:layout_constraintTop_toTopOf="@+id/whetherIcon"
+            tools:text="1\u00B0C" />
+
+        <TextView
+            android:id="@+id/minTemperatureLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
+            app:layout_constraintEnd_toStartOf="@+id/minTemperatureValue"
+            app:layout_constraintTop_toTopOf="@+id/whetherIcon"
+            tools:text="Min : " />
+
+        <TextView
+            android:id="@+id/minTemperatureValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/whetherIcon"
+            tools:text="1\u00B0C" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

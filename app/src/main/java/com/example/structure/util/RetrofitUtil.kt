@@ -1,4 +1,4 @@
-package com.smallticket.petping.util
+package com.example.structure.util
 
 import com.example.structure.URL
 import okhttp3.ResponseBody
