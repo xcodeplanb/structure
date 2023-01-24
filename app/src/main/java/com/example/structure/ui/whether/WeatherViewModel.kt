@@ -9,15 +9,20 @@ import com.example.structure.Event
 import com.example.structure.api.Resource
 import com.example.structure.data.repository.WeatherRepository
 import com.example.structure.data.vo.WeatherVo
+import com.example.structure.di.IoDispatcher
 import com.example.structure.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeatherViewModel @Inject constructor(private val weatherRepository: WeatherRepository) :
+class WeatherViewModel @Inject constructor(
+    private val weatherRepository: WeatherRepository,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+) :
     ViewModel() {
     private val _resultList = MutableLiveData<Event<List<WeatherVo.DailyItem>>>()
     val resultList: LiveData<Event<List<WeatherVo.DailyItem>>>
@@ -29,8 +34,7 @@ class WeatherViewModel @Inject constructor(private val weatherRepository: Weathe
 
     // Seoul, London, Chicago
     private fun getWeatherAll() {
-        LogUtil.log("TAG", ": $")
-        viewModelScope.launch {
+        viewModelScope.launch(ioDispatcher) {
             val weatherlist = arrayListOf<WeatherVo.DailyItem>()
             var seoulWeathers = listOf<WeatherVo.DailyItem>()
             var londonWeathers = listOf<WeatherVo.DailyItem>()
