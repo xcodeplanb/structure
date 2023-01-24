@@ -42,7 +42,11 @@ class WeatherViewModel @Inject constructor(private val weatherRepository: Weathe
                 when (response) {
                     is Resource.Success -> {
                         response.value.let {
-                            seoulWeathers = it
+                            val timeZone = it.timezone
+                            seoulWeathers = it.daily
+                            seoulWeathers.forEach { dailyItem ->
+                                dailyItem.timezoneText = timeZone
+                            }
                         }
                     }
                     else -> {
@@ -56,7 +60,11 @@ class WeatherViewModel @Inject constructor(private val weatherRepository: Weathe
                 when (response) {
                     is Resource.Success -> {
                         response.value.let {
-                            londonWeathers = it
+                            val timeZone = it.timezone
+                            londonWeathers = it.daily
+                            londonWeathers.forEach { dailyItem ->
+                                dailyItem.timezoneText = timeZone
+                            }
                         }
                     }
                     else -> {
@@ -69,8 +77,12 @@ class WeatherViewModel @Inject constructor(private val weatherRepository: Weathe
                 )
                 when (response) {
                     is Resource.Success -> {
-                        response.value.let {
-                            chicagoWeathers = it
+                        response.value.let { it ->
+                            val timeZone = it.timezone
+                            chicagoWeathers = it.daily
+                            chicagoWeathers.forEach { dailyItem ->
+                                dailyItem.timezoneText = timeZone
+                            }
                         }
                     }
                     else -> {
@@ -82,11 +94,11 @@ class WeatherViewModel @Inject constructor(private val weatherRepository: Weathe
             deferred.awaitAll()
 
             weatherlist.add(WeatherVo.DailyItem(cityName = "Seoul", isHeader = true))
-            weatherlist.addAll(seoulWeathers)
+            weatherlist.addAll(seoulWeathers.dropLast(2))
             weatherlist.add(WeatherVo.DailyItem(cityName = "London", isHeader = true))
-            weatherlist.addAll(londonWeathers)
+            weatherlist.addAll(londonWeathers.dropLast(2))
             weatherlist.add(WeatherVo.DailyItem(cityName = "Chicago", isHeader = true))
-            weatherlist.addAll(chicagoWeathers)
+            weatherlist.addAll(chicagoWeathers.dropLast(2))
 
             _resultList.postValue(Event(weatherlist))
         }

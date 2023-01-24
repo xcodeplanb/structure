@@ -1,8 +1,7 @@
 package com.example.structure.data.vo
 
 import com.example.structure.ICON_URL
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.structure.util.getDateText
 
 data class WeatherVo(
     val timezone: String = "",
@@ -31,9 +30,10 @@ data class WeatherVo(
         val sunset: Int = 0,
         val weather: List<WeatherItem>? = null,
         val humidity: Int = 0,
-        val windSpeed: Double = 0.0
+        val windSpeed: Double = 0.0,
+        var timezoneText: String = ""
     ) {
-        val dateText get() = SimpleDateFormat("EEE, dd MMM", Locale.US).format(dt * 1000L)
+        val dateText get() = getDateText(dt * 1000L,timezoneText)
 
         data class WeatherItem(
             val icon: String = "",

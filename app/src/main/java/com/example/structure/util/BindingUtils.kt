@@ -12,7 +12,6 @@ object BindingUtils {
     @BindingAdapter("imageUrl")
     fun setImageUrl(imageView: ImageView, list: List<WeatherVo.DailyItem.WeatherItem>?) {
         if (!list.isNullOrEmpty()) {
-            LogUtil.log("TAG", "list[0].iconUrl: ${list[0].iconUrl}")
             Glide.with(imageView.context).load(list[0].iconUrl).into(imageView)
         }
     }
