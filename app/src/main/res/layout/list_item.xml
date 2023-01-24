@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="java.util.ArrayList" />
+        <import type="java.util.List" />
         <variable
-            name="viewModel"
-            type="com.example.structure.ui.whether.WeatherViewModel" />
+            name="item"
+            type="com.example.structure.data.vo.WeatherVo.DailyItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +18,7 @@
         android:paddingHorizontal="10dp">
 
         <TextView
+            android:text="@{item.dateText}"
             android:id="@+id/dateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,15 +30,17 @@
             tools:text="Today" />
 
         <ImageView
+            app:imageUrl="@{item.weather}"
             android:id="@+id/whetherIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dateText"
-            tools:src="@drawable/wi_cloud">
+            tools:src="@drawable/wi_cloud"/>
 
         <TextView
+            app:bindText="@{item.weather}"
             android:id="@+id/whetherText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,7 +57,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
             app:layout_constraintEnd_toStartOf="@+id/maxTemperatureValue"
             app:layout_constraintTop_toTopOf="@+id/whetherIcon"
-            tools:text="Max : " />
+            android:text="@string/max" />
 
         <TextView
             android:id="@+id/maxTemperatureValue"
@@ -63,7 +67,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
             app:layout_constraintEnd_toStartOf="@+id/minTemperatureLabel"
             app:layout_constraintTop_toTopOf="@+id/whetherIcon"
-            tools:text="1\u00B0C" />
+            android:text="@{item.Temp.celsiusMax}" />
 
         <TextView
             android:id="@+id/minTemperatureLabel"
@@ -72,7 +76,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
             app:layout_constraintEnd_toStartOf="@+id/minTemperatureValue"
             app:layout_constraintTop_toTopOf="@+id/whetherIcon"
-            tools:text="Min : " />
+            android:text="@string/min" />
 
         <TextView
             android:id="@+id/minTemperatureValue"
@@ -81,7 +85,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/whetherIcon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/whetherIcon"
-            tools:text="1\u00B0C" />
+            android:text="@{item.Temp.celsiusMin}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

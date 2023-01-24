@@ -2,7 +2,7 @@ package com.example.structure.data.vo
 
 import android.location.Location
 
-data class WalkPath(
+data class WalkPathVo(
     val location: Location,
     val state: Int,
     val lat: String,

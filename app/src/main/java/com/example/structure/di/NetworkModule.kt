@@ -36,11 +36,7 @@ object NetworkModule {
             retryOnConnectionFailure(true)
             addInterceptor(HeaderInterceptor(userAgent))
             addNetworkInterceptor(HttpLoggingInterceptor().apply {
-                level = if (BuildConfig.DEBUG) {
-                    HttpLoggingInterceptor.Level.BODY
-                } else {
-                    HttpLoggingInterceptor.Level.NONE
-                }
+                level = HttpLoggingInterceptor.Level.BODY
             })
         }.build()
     }

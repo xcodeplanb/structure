@@ -8,12 +8,10 @@ import com.example.structure.BuildConfig
  */
 object LogUtil {
     fun log(tag: String?, message: String) {
-        if (BuildConfig.BUILD_TYPE == "debug") {
-            val filename = String.format(
-                " (%s:%s)", Throwable().stackTrace[1].fileName, Throwable().stackTrace[1].lineNumber
-            )
-            val methodName = String.format(" %s() ", Throwable().stackTrace[1].methodName)
-            Log.d(tag, methodName + message + filename)
-        }
+        val filename = String.format(
+            " (%s:%s)", Throwable().stackTrace[1].fileName, Throwable().stackTrace[1].lineNumber
+        )
+        val methodName = String.format(" %s() ", Throwable().stackTrace[1].methodName)
+        Log.d(tag, methodName + message + filename)
     }
 }

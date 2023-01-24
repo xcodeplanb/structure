@@ -25,9 +25,6 @@ fun <T> LiveData<out Event<T>>.observeEvent(owner: LifecycleOwner, onEventUnhand
     observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandled) }
 }
 
-/**
- * Returns a flow which performs the given [action] on each value of the original flow's [Event].
- */
 fun <T> Flow<Event<T?>>.onEachEvent(action: suspend (T) -> Unit): Flow<T> = transform { value ->
     value.getContentIfNotHandled()?.let {
         action(it)
