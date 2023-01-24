@@ -3,13 +3,13 @@ package com.example.structure.data.db.walk
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.structure.data.vo.WalkPath
+import com.example.structure.data.vo.WalkPathVo
 
 @Entity(tableName = "walk")
 data class Walk(
     @PrimaryKey()
     @ColumnInfo(name = "walk_id")
-    var walkId: Int = -1,
+    var walkId: Int = 0,
 
     @ColumnInfo(name = "user_id")
     var userId: String = "",
@@ -24,7 +24,7 @@ data class Walk(
     var time: String = "",
 
     @ColumnInfo(name = "path")
-    var path: List<WalkPath> = listOf(),
+    var path: List<WalkPathVo> = listOf(),
 
     @ColumnInfo(name = "start_lat")
     var startLat: Double = 0.0,

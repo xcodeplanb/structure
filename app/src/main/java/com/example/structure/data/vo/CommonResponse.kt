@@ -7,14 +7,14 @@ data class ErrorResponse(
 )
 
 data class CommonResponse<T>(
-    val status: String,
+    val status: Int,
     val data: T,
     var error: ErrorResponse
 )
 
 data class CommonListResponse<T>(
     val result: Boolean,
-    val status: String,
+    val status: Int,
     val data: List<T>,
     var error: ErrorResponse
 )

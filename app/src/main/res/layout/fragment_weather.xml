@@ -16,17 +16,17 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:nestedScrollingEnabled="false"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/noticeRecyclerview"
+            android:id="@+id/weatherRecyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:viewModel="@{viewModel}"
-            tools:listitem="@layout/list_item" />
+            tools:listitem="@layout/list_item_header" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
