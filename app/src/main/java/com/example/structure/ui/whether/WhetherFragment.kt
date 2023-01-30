@@ -7,15 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.example.structure.MainShareViewModel
 import com.example.structure.databinding.FragmentWeatherBinding
 import com.example.structure.util.LogUtil
+import com.example.structure.util.repeatOnStarted
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WhetherFragment : Fragment() {
@@ -42,13 +39,19 @@ class WhetherFragment : Fragment() {
     }
 
     private fun setUpObserver() {
-        lifecycleScope.launch {
-            viewModel.result.flowWithLifecycle(
-                viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
-            ).collect { data ->
-                LogUtil.log(TAG, "data: $data")
+        repeatOnStarted {
+            viewModel.result.collect { data ->
+                LogUtil.log(TAG, "data: ${data}")
             }
         }
+
+//        lifecycleScope.launch {
+//            viewModel.result.flowWithLifecycle(
+//                viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
+//            ).collect { data ->
+//                LogUtil.log(TAG, "data: $data")
+//            }
+//        }
     }
 
     private fun setUpAdapter() {
