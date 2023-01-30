@@ -7,18 +7,23 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.example.structure.MainShareViewModel
 import com.example.structure.databinding.FragmentWeatherBinding
-import com.example.structure.observeEvent
 import com.example.structure.util.LogUtil
+import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WhetherFragment : Fragment() {
     private lateinit var binding: FragmentWeatherBinding
+    private lateinit var weatherAdapter: WeatherAdapter
+    private lateinit var groupAdapter: GroupieAdapter
     private val viewModel: WeatherViewModel by viewModels()
     private val mainShareViewModel: MainShareViewModel by activityViewModels()
-    private lateinit var weatherAdapter: WeatherAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,8 +42,12 @@ class WhetherFragment : Fragment() {
     }
 
     private fun setUpObserver() {
-        viewModel.resultList.observeEvent(viewLifecycleOwner) { list ->
-            weatherAdapter.submitList(list)
+        lifecycleScope.launch {
+            viewModel.result.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED
+            ).collect { data ->
+                LogUtil.log(TAG, "data: $data")
+            }
         }
     }
 

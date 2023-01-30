@@ -1,7 +1,6 @@
 package com.example.structure.util
 
 import android.util.Log
-import com.example.structure.BuildConfig
 
 /**
  * 로그가 찍힌 부분을 클릭시 해당 라인으로 이동
