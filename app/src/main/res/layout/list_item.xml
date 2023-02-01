@@ -16,7 +16,7 @@
         android:paddingHorizontal="10dp">
 
         <TextView
-            android:text="@{item.dateText}"
+            android:text="@{item.timezoneText}"
             android:id="@+id/dateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

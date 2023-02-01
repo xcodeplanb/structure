@@ -6,7 +6,7 @@ import com.example.structure.databinding.ListItemHeaderBinding
 import com.xwray.groupie.viewbinding.BindableItem
 
 class HeaderItem(
-    val city: String
+    private val cityName: String
 ) : BindableItem<ListItemHeaderBinding>() {
 
     override fun getLayout(): Int = R.layout.list_item_header
@@ -15,6 +15,6 @@ class HeaderItem(
         ListItemHeaderBinding.bind(view)
 
     override fun bind(viewBinding: ListItemHeaderBinding, position: Int) {
-        viewBinding.city.text = city
+        viewBinding.city.text = cityName
     }
 }
