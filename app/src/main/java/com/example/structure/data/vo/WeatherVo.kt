@@ -1,8 +1,5 @@
 package com.example.structure.data.vo
 
-import com.example.structure.ICON_URL
-import com.example.structure.util.getDateText
-
 data class WeatherVo(
     val timezone: String = "",
     val timezoneOffset: Int = 0,
@@ -11,8 +8,6 @@ data class WeatherVo(
     val lat: Double = 0.0
 ) {
     data class DailyItem(
-        var cityName: String = "",
-        var isHeader: Boolean = false,
         val moonset: Int = 0,
         val sunrise: Int = 0,
         val temp: Temp? = null,
@@ -31,18 +26,17 @@ data class WeatherVo(
         val weather: List<WeatherItem>? = null,
         val humidity: Int = 0,
         val windSpeed: Double = 0.0,
-        var timezoneText: String = ""
+        var timezoneText: String = "",
+        var cityName: String = "",
+        var isHeaderPositon: Boolean
     ) {
-        val dateText get() = getDateText(dt * 1000L,timezoneText)
-
         data class WeatherItem(
             val icon: String = "",
             val description: String = "",
             val main: String = "",
-            val id: Int = 0
-        ) {
-            val iconUrl get() = ICON_URL + "${icon}.png"
-        }
+            val id: Int = 0,
+            var iconUrl: String = ""
+        )
 
         data class Temp(
             val min: Double = 0.0,
@@ -50,11 +44,10 @@ data class WeatherVo(
             val eve: Double = 0.0,
             val night: Double = 0.0,
             val day: Double = 0.0,
-            val morn: Double = 0.0
-        ) {
-            val celsiusMin get() = (min - 273.15).toInt().toString() + "\u00B0C"
-            val celsiusMax get() = (max - 273.15).toInt().toString() + "\u00B0C"
-        }
+            val morn: Double = 0.0,
+            var celsiusMin: String = "",
+            var celsiusMax: String = ""
+        )
 
         data class FeelsLike(
             val eve: Double = 0.0,
@@ -64,5 +57,3 @@ data class WeatherVo(
         )
     }
 }
-
-

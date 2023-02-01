@@ -7,18 +7,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.MainShareViewModel
+import com.example.structure.api.Resource
+import com.example.structure.data.vo.WeatherVo
 import com.example.structure.databinding.FragmentWeatherBinding
-import com.example.structure.observeEvent
 import com.example.structure.util.LogUtil
+import com.example.structure.util.repeatOnStarted
+import com.xwray.groupie.Group
+import com.xwray.groupie.GroupieAdapter
+import com.xwray.groupie.Section
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WhetherFragment : Fragment() {
     private lateinit var binding: FragmentWeatherBinding
+    private lateinit var weatherAdapter: WeatherAdapter
+    private lateinit var groupAdapter: GroupieAdapter
     private val viewModel: WeatherViewModel by viewModels()
     private val mainShareViewModel: MainShareViewModel by activityViewModels()
-    private lateinit var weatherAdapter: WeatherAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,16 +44,35 @@ class WhetherFragment : Fragment() {
     }
 
     private fun setUpObserver() {
-        viewModel.resultList.observeEvent(viewLifecycleOwner) { list ->
-            weatherAdapter.submitList(list)
+        repeatOnStarted {
+            viewModel.fullList.collect { data ->
+                if (data is Resource.Success) {
+                    groupAdapter.clear()
+                    groupAdapter.addAll(makeSectionList(data.value))
+                } else if (data is Resource.Loading) {
+
+                }
+            }
         }
     }
 
     private fun setUpAdapter() {
-        weatherAdapter = WeatherAdapter()
+        groupAdapter = GroupieAdapter()
         binding.weatherRecyclerview.apply {
-            adapter = weatherAdapter
+            layoutManager = LinearLayoutManager(binding.weatherRecyclerview.context)
+            adapter = groupAdapter
         }
+    }
+
+    private fun makeSectionList(weatherVoList: List<WeatherVo>): ArrayList<Section> {
+        val sections = ArrayList<Section>()
+        weatherVoList.forEach { weatherVo ->
+            val section = Section()
+            section.setHeader(HeaderItem(weatherVo.timezone))
+            section.addAll(weatherVo.daily.map { dailyItem -> WeatherItem(dailyItem) })
+            sections.add(section)
+        }
+        return sections
     }
 
     companion object {

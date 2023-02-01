@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="java.util.ArrayList" />
-        <import type="java.util.List" />
         <variable
             name="item"
             type="com.example.structure.data.vo.WeatherVo.DailyItem" />
@@ -18,7 +16,7 @@
         android:paddingHorizontal="10dp">
 
         <TextView
-            android:text="@{item.dateText}"
+            android:text="@{item.timezoneText}"
             android:id="@+id/dateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

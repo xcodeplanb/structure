@@ -22,7 +22,9 @@ class WeatherAdapter :
                     parent,
                     false
                 )
-                HeaderViewHolder(binding)
+                HeaderViewHolder(binding).also {
+                    binding
+                }
             }
             else -> {
                 val binding = ListItemBinding.inflate(
@@ -43,7 +45,7 @@ class WeatherAdapter :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (getItem(position).isHeader) {
+        return if (getItem(position).isHeaderPositon) {
             HEADER_VIEW
         } else {
             ITEM_VIEW
