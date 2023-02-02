@@ -12,6 +12,7 @@ import com.example.structure.MainShareViewModel
 import com.example.structure.api.Resource
 import com.example.structure.data.vo.WeatherVo
 import com.example.structure.databinding.FragmentWeatherBinding
+import com.example.structure.observeEvent
 import com.example.structure.util.LogUtil
 import com.example.structure.util.repeatOnStarted
 import com.xwray.groupie.GroupieAdapter
@@ -46,14 +47,24 @@ class WhetherFragment : Fragment() {
         repeatOnStarted {
             viewModel.fullList.collect { data ->
                 if (data is Resource.Success) {
-                    groupAdapter.clear()
                     groupAdapter.addAll(makeSectionList(data.value))
                 }
-//                else if (data is Resource.Loading) {
-//                    //To Do
-//                }
+                else if (data is Resource.Loading) {
+                    //To Do
+                }
             }
         }
+
+//        viewModel.weatherList.observeEvent(viewLifecycleOwner) { data ->
+//            LogUtil.log(TAG, ": $")
+//            if (data is Resource.Success) {
+//                groupAdapter.clear()
+//                groupAdapter.addAll(makeSectionList(data.value))
+//            } else if (data is Resource.Loading) {
+//                //To Do
+//            }
+//        }
+
     }
 
     private fun setUpAdapter() {
