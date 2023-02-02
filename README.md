@@ -1,2 +1,3 @@
-# Weather 
-## flow, library recyclerview 예정
+# Code template 
+### 1. WeatherFragment 
+- flow, groupie library
