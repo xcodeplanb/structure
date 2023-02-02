@@ -6,22 +6,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 abstract class BaseRepository {
-    suspend fun <T> safeApiCallWithLiveData(apiCall: suspend () -> T): Resource<T> {
-        return try {
-            Resource.Success(apiCall.invoke())
-        } catch (throwable: Throwable) {
-            when (throwable) {
-                is HttpException, is UnknownHostException, is SocketTimeoutException -> {
-                    Resource.Failure(null, null)
-                }
-                else -> {
-                    Resource.Failure(null, null)
-                }
-            }
-        }
-    }
-
-    fun <T> safeApiCalWithFlow(apiCall: () -> T): Resource<T> {
+    suspend fun <T> safeApiCall(apiCall: suspend () -> T): Resource<T> {
         return try {
             Resource.Success(apiCall.invoke())
         } catch (throwable: Throwable) {
