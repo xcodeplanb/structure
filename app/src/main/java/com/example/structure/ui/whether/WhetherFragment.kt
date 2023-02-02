@@ -14,7 +14,6 @@ import com.example.structure.data.vo.WeatherVo
 import com.example.structure.databinding.FragmentWeatherBinding
 import com.example.structure.util.LogUtil
 import com.example.structure.util.repeatOnStarted
-import com.xwray.groupie.Group
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,9 +48,10 @@ class WhetherFragment : Fragment() {
                 if (data is Resource.Success) {
                     groupAdapter.clear()
                     groupAdapter.addAll(makeSectionList(data.value))
-                } else if (data is Resource.Loading) {
-
                 }
+//                else if (data is Resource.Loading) {
+//                    //To Do
+//                }
             }
         }
     }

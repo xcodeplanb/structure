@@ -16,16 +16,18 @@ import javax.inject.Inject
 class WeatherViewModel @Inject constructor(private val weatherRepository: WeatherRepository) :
     ViewModel() {
 
+    val exclude = "current,minutely,hourly,alerts"
+
     val seoul = weatherRepository.getWeatherWithFlow(
-        37.5666791, 126.9782914, "current,minutely,hourly,alerts", APP_ID
+        37.5666791, 126.9782914, exclude, APP_ID
     )
 
     val london = weatherRepository.getWeatherWithFlow(
-        51.509865, -0.118092, "current,minutely,hourly,alerts", APP_ID
+        51.509865, -0.118092, exclude, APP_ID
     )
 
     val chicago = weatherRepository.getWeatherWithFlow(
-        41.8379, -87.6828, "current,minutely,hourly,alerts", APP_ID
+        41.8379, -87.6828, exclude, APP_ID
     )
 
     val fullList = combine(seoul, london, chicago) { seoul, london, chicago ->

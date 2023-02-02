@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.structure.databinding.ActivityMainBinding
-import com.example.structure.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 
