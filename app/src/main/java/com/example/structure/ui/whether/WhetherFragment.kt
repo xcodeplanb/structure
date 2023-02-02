@@ -18,6 +18,7 @@ import com.example.structure.util.repeatOnStarted
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.log
 
 @AndroidEntryPoint
 class WhetherFragment : Fragment() {
@@ -46,10 +47,10 @@ class WhetherFragment : Fragment() {
     private fun setUpObserver() {
         repeatOnStarted {
             viewModel.fullList.collect { data ->
+                LogUtil.log(TAG, "data: $data")
                 if (data is Resource.Success) {
                     groupAdapter.addAll(makeSectionList(data.value))
-                }
-                else if (data is Resource.Loading) {
+                } else if (data is Resource.Loading) {
                     //To Do
                 }
             }
@@ -89,5 +90,4 @@ class WhetherFragment : Fragment() {
     companion object {
         const val TAG = "WhetherFragment"
     }
-
 }

@@ -1,23 +1,15 @@
 package com.example.structure.ui.whether
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.structure.APP_ID
-import com.example.structure.Event
 import com.example.structure.api.Resource
 import com.example.structure.data.repository.WeatherRepository
 import com.example.structure.data.vo.WeatherVo
-import com.example.structure.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
