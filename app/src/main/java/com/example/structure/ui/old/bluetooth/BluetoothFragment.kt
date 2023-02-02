@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 
 /**
  * 블루투스 관련 클래스
- * old (need upgrade code)
+ * old code
  */
 open class BluetoothFragment : Fragment(),
     BluetoothListener {

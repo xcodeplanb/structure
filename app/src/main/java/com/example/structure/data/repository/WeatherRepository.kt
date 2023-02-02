@@ -16,12 +16,13 @@ import javax.inject.Inject
 class WeatherRepository @Inject constructor(
     private val webService: WebService, @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseRepository() {
+
     /**
      * livedata, type recyclerView
      */
     suspend fun getWeatherWithLiveData(lat: Double, lon: Double, exclude: String, appId: String) =
-        safeApiCall {
-            val weatherVo = webService.getWeather(lat, lon, exclude, appId)
+        safeApiCallWithLiveData {
+            val weatherVo = webService.getWeatherWithLivedata(lat, lon, exclude, appId)
             weatherVo.daily.forEachIndexed { index, dailyItem ->
                 if (index == 0) {
                     dailyItem.isHeaderPositon = true
@@ -34,6 +35,7 @@ class WeatherRepository @Inject constructor(
                 dailyItem.temp?.celsiusMax =
                     ((dailyItem.temp?.max ?: 0.0) - 273.15).toInt().toString() + "\u00B0C"
             }
+            return@safeApiCallWithLiveData weatherVo
         }
 
     /**
@@ -45,11 +47,12 @@ class WeatherRepository @Inject constructor(
         exclude: String,
         appId: String
     ): Flow<Resource<WeatherVo>> = flow {
-        emit(safeApiCall {
+        emit(safeApiCalWithFlow {
             val weatherVo = webService.getWeather(lat, lon, exclude, appId)
             weatherVo.daily.forEach { dailyItem ->
                 dailyItem.timezoneText = getDateText(dailyItem.dt * 1000L, weatherVo.timezone)
-                dailyItem.weather?.get(0)?.iconUrl = ICON_URL + "${dailyItem.weather?.get(0)?.icon}.png"
+                dailyItem.weather?.get(0)?.iconUrl =
+                    ICON_URL + "${dailyItem.weather?.get(0)?.icon}.png"
                 dailyItem.temp?.celsiusMin =
                     ((dailyItem.temp?.min ?: 0.0) - 273.15).toInt().toString() + "\u00B0C"
                 dailyItem.temp?.celsiusMax =
