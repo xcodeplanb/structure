@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.view.View
+import java.io.ByteArrayOutputStream
 import java.net.URL
 import kotlin.jvm.Throws
 
@@ -64,4 +65,15 @@ fun getOrientation(filePath: String): Float {
         else -> 0
     }
     return orientation.toFloat()
+}
+
+fun Bitmap.toByteArray(): ByteArray {
+    ByteArrayOutputStream().apply {
+        compress(Bitmap.CompressFormat.JPEG, 100, this)
+        return toByteArray()
+    }
+}
+
+fun ByteArray.toBitmap(): Bitmap {
+    return BitmapFactory.decodeByteArray(this, 0, size)
 }
