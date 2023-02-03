@@ -1,10 +1,13 @@
 package com.example.structure.util
 
 import android.text.*
+import android.view.View
+import android.view.View.*
 import android.webkit.*
 import android.widget.*
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.example.structure.api.Resource
 import com.example.structure.data.vo.WeatherVo
 
 object BindingUtils {
@@ -22,5 +25,14 @@ object BindingUtils {
         if (!list.isNullOrEmpty()) {
             textView.text = list[0].description
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("showLoading")
+    fun ProgressBar.showLoading(state: Resource<Nothing>) {
+        visibility = if (state is Resource.Loading)
+            VISIBLE
+        else
+            GONE
     }
 }

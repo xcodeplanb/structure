@@ -47,7 +47,8 @@ class WeatherRepository @Inject constructor(
         exclude: String,
         appId: String
     ): Flow<Resource<WeatherVo>> = flow {
-        emit(safeApiCall {
+        emit(
+            safeApiCall {
             val weatherVo = webService.getWeather(lat, lon, exclude, appId)
             weatherVo.daily.forEach { dailyItem ->
                 dailyItem.timezoneText = getDateText(dailyItem.dt * 1000L, weatherVo.timezone)
