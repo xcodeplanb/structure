@@ -2,6 +2,8 @@ package com.example.structure.util
 
 import android.app.ActivityManager
 import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 
 fun isAppInForeground(context: Context): Boolean {
     val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
@@ -15,4 +17,18 @@ fun isAppInForeground(context: Context): Boolean {
         }
     }
     return false
+}
+
+fun View.showSoftKeyboard() {
+    if (this.requestFocus()) {
+        val imm = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+    }
+}
+
+fun View.hideSoftKeyboard() {
+    if (this.requestFocus()) {
+        val imm = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(this.windowToken, 0)
+    }
 }

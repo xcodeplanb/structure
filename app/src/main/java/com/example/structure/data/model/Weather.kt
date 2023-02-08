@@ -1,6 +1,6 @@
-package com.example.structure.data.vo
+package com.example.structure.data.model
 
-data class WeatherVo(
+data class Weather(
     val timezone: String = "",
     val timezoneOffset: Int = 0,
     val daily: List<DailyItem> = emptyList(),

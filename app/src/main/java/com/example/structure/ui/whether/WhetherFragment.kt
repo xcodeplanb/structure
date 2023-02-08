@@ -10,15 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.MainShareViewModel
 import com.example.structure.api.Resource
-import com.example.structure.data.vo.WeatherVo
+import com.example.structure.data.model.Weather
 import com.example.structure.databinding.FragmentWeatherBinding
-import com.example.structure.observeEvent
 import com.example.structure.util.LogUtil
 import com.example.structure.util.repeatOnStarted
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.Section
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.log
 
 @AndroidEntryPoint
 class WhetherFragment : Fragment() {
@@ -27,6 +25,12 @@ class WhetherFragment : Fragment() {
     private lateinit var groupAdapter: GroupieAdapter
     private val viewModel: WeatherViewModel by viewModels()
     private val mainShareViewModel: MainShareViewModel by activityViewModels()
+    private var boolean  = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        boolean = true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,7 +41,6 @@ class WhetherFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        LogUtil.log(TAG, ": $")
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         setUpObserver()
@@ -47,7 +50,6 @@ class WhetherFragment : Fragment() {
     private fun setUpObserver() {
         repeatOnStarted {
             viewModel.fullList.collect { data ->
-                LogUtil.log(TAG, "data: $data")
                 if (data is Resource.Success) {
                     groupAdapter.addAll(makeSectionList(data.value))
                 } else if (data is Resource.Loading) {
@@ -57,7 +59,6 @@ class WhetherFragment : Fragment() {
         }
 
 //        viewModel.weatherList.observeEvent(viewLifecycleOwner) { data ->
-//            LogUtil.log(TAG, ": $")
 //            if (data is Resource.Success) {
 //                groupAdapter.clear()
 //                groupAdapter.addAll(makeSectionList(data.value))
@@ -76,7 +77,7 @@ class WhetherFragment : Fragment() {
         }
     }
 
-    private fun makeSectionList(weatherVoList: List<WeatherVo>): ArrayList<Section> {
+    private fun makeSectionList(weatherVoList: List<Weather>): ArrayList<Section> {
         val sections = ArrayList<Section>()
         weatherVoList.forEach { weatherVo ->
             val section = Section()

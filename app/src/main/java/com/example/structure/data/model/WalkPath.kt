@@ -1,4 +1,4 @@
-package com.example.structure.data.vo
+package com.example.structure.data.model
 
 data class WalkPath(
     val location: MyLocation,

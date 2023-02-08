@@ -3,13 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/mainScreen">
+    app:startDestination="@id/whetherScreen">
 
     <fragment
-        android:id="@+id/mainScreen"
+        android:id="@+id/whetherScreen"
         android:name="com.example.structure.ui.whether.WhetherFragment"
-        android:label="mainScreen"
-        tools:layout="@layout/fragment_weather">
+        android:label="whetherScreen"
+        tools:layout="@layout/fragment_weather"/>
+
+    <fragment
+        android:id="@+id/pagingScreen"
+        android:name="com.example.structure.ui.paging.PagingFragment"
+        android:label="pagingScreen"
+        tools:layout="@layout/fragment_paging">
+
+        <action
+            android:id="@+id/action_pagingList_to_pagingDetail"
+            app:destination="@id/pagingDetailScreen"
+            app:launchSingleTop="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/pagingDetailScreen"
+        android:name="com.example.structure.ui.paging.PagingDetailFragment"
+        android:label="pagingDetailScreen"
+        tools:layout="@layout/fragment_paging_detail">
+
+        <argument
+            android:name="userItem"
+            app:argType="com.example.structure.data.model.UserItem"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

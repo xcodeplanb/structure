@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.example.structure.data.vo.WeatherVo.DailyItem" />
+            type="com.example.structure.data.model.Weather.DailyItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
             tools:text="Today" />
 
         <ImageView
-            app:imageUrl="@{item.weather}"
+            app:weatherImage="@{item.weather}"
             android:id="@+id/whetherIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -38,7 +38,7 @@
             tools:src="@drawable/wi_cloud"/>
 
         <TextView
-            app:bindText="@{item.weather}"
+            app:weatherText="@{item.weather}"
             android:id="@+id/whetherText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

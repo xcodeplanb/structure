@@ -5,29 +5,27 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.structure.data.vo.WeatherVo
-import com.example.structure.databinding.ListItemBinding
-import com.example.structure.databinding.ListItemHeaderBinding
+import com.example.structure.data.model.Weather
+import com.example.structure.databinding.WeatherListItemBinding
+import com.example.structure.databinding.WeatherListItemHeaderBinding
 
 class WeatherAdapter :
-    ListAdapter<WeatherVo.DailyItem, RecyclerView.ViewHolder>(TaskDiffCallback()) {
+    ListAdapter<Weather.DailyItem, RecyclerView.ViewHolder>(TaskDiffCallback()) {
     private val HEADER_VIEW = 0
     private val ITEM_VIEW = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             HEADER_VIEW -> {
-                val binding = ListItemHeaderBinding.inflate(
+                val binding = WeatherListItemHeaderBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
-                HeaderViewHolder(binding).also {
-                    binding
-                }
+                HeaderViewHolder(binding)
             }
             else -> {
-                val binding = ListItemBinding.inflate(
+                val binding = WeatherListItemBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -52,29 +50,29 @@ class WeatherAdapter :
         }
     }
 
-    inner class HeaderViewHolder(private val binding: ListItemHeaderBinding) :
+    inner class HeaderViewHolder(private val binding: WeatherListItemHeaderBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WeatherVo.DailyItem) {
+        fun bind(item: Weather.DailyItem) {
             binding.item = item
         }
     }
 
-    inner class ItemViewHolder(private val binding: ListItemBinding) :
+    inner class ItemViewHolder(private val binding: WeatherListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: WeatherVo.DailyItem) {
+        fun bind(item: Weather.DailyItem) {
             binding.item = item
         }
     }
 
-    class TaskDiffCallback : DiffUtil.ItemCallback<WeatherVo.DailyItem>() {
+    class TaskDiffCallback : DiffUtil.ItemCallback<Weather.DailyItem>() {
         override fun areItemsTheSame(
-            oldItem: WeatherVo.DailyItem, newItem: WeatherVo.DailyItem
+            oldItem: Weather.DailyItem, newItem: Weather.DailyItem
         ): Boolean {
             return oldItem.dt == newItem.dt
         }
 
         override fun areContentsTheSame(
-            oldItem: WeatherVo.DailyItem, newItem: WeatherVo.DailyItem
+            oldItem: Weather.DailyItem, newItem: Weather.DailyItem
         ): Boolean {
             return oldItem.dt == newItem.dt
         }

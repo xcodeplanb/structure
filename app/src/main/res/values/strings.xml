@@ -3,4 +3,6 @@
     <string name="min">Min :</string>
     <string name="max">Max :</string>
     <string name="notification_channel_id">structure</string>
+    <string name="no_search_results">검색 결과가 없습니다.</string>
+    <string name="enterSearchWord">검색어를 입력하세요.</string>
 </resources>

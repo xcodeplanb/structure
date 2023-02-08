@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.example.structure.data.vo.WeatherVo.DailyItem" />
+            type="com.example.structure.data.model.Weather.DailyItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

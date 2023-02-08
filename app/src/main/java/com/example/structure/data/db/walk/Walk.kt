@@ -3,7 +3,7 @@ package com.example.structure.data.db.walk
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.structure.data.vo.WalkPathVo
+import com.example.structure.data.model.WalkPath
 
 @Entity(tableName = "walk")
 data class Walk(
@@ -24,7 +24,7 @@ data class Walk(
     var time: String = "",
 
     @ColumnInfo(name = "path")
-    var path: List<WalkPathVo> = listOf(),
+    var path: List<WalkPath> = listOf(),
 
     @ColumnInfo(name = "start_lat")
     var startLat: Double = 0.0,

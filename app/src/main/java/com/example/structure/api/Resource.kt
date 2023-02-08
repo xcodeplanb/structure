@@ -1,6 +1,6 @@
 package com.example.structure.api
 
-import com.example.structure.data.vo.ErrorResponse
+import com.example.structure.data.model.ErrorResponse
 import okhttp3.ResponseBody
 
 sealed class Resource<out T> {

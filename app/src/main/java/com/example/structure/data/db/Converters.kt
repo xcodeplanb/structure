@@ -1,7 +1,7 @@
 package com.example.structure.data.db
 
 import androidx.room.TypeConverter
-import com.example.structure.data.vo.WalkPath
+import com.example.structure.data.model.WalkPath
 import com.google.gson.Gson
 
 class Converters {

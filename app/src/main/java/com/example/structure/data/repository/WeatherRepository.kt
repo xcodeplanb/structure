@@ -4,7 +4,7 @@ import com.example.structure.ICON_URL
 import com.example.structure.api.Resource
 import com.example.structure.api.WebService
 import com.example.structure.data.repository.base.BaseRepository
-import com.example.structure.data.vo.WeatherVo
+import com.example.structure.data.model.Weather
 import com.example.structure.di.IoDispatcher
 import com.example.structure.util.getDateText
 import kotlinx.coroutines.CoroutineDispatcher
@@ -20,9 +20,9 @@ class WeatherRepository @Inject constructor(
     /**
      * livedata, type recyclerView
      */
-    suspend fun getWeatherWithLiveData(lat: Double, lon: Double, exclude: String, appId: String) =
+    suspend fun getWeatherWithLiveData(url: String,lat: Double, lon: Double, exclude: String, appId: String) =
         safeApiCall {
-            val weatherVo = webService.getWeather(lat, lon, exclude, appId)
+            val weatherVo = webService.getWeather(url, lat, lon, exclude, appId)
             weatherVo.daily.forEachIndexed { index, dailyItem ->
                 if (index == 0) {
                     dailyItem.isHeaderPositon = true
@@ -39,17 +39,18 @@ class WeatherRepository @Inject constructor(
         }
 
     /**
-     * flow, groupie libraly
+     * flow, groupie library
      */
     fun getWeatherWithFlow(
+        url: String,
         lat: Double,
         lon: Double,
         exclude: String,
         appId: String
-    ): Flow<Resource<WeatherVo>> = flow {
+    ): Flow<Resource<Weather>> = flow {
         emit(
             safeApiCall {
-            val weatherVo = webService.getWeather(lat, lon, exclude, appId)
+            val weatherVo = webService.getWeather(url, lat, lon, exclude, appId)
             weatherVo.daily.forEach { dailyItem ->
                 dailyItem.timezoneText = getDateText(dailyItem.dt * 1000L, weatherVo.timezone)
                 dailyItem.weather?.get(0)?.iconUrl =
