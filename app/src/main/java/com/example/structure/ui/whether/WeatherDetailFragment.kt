@@ -1,4 +1,4 @@
-package com.example.structure.ui.paging
+package com.example.structure.ui.whether
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,17 +8,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.structure.databinding.FragmentPagingDetailBinding
+import com.example.structure.databinding.FragmentWeatherDetailBinding
+import com.example.structure.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
-/**
- * back stack, args 테스트 fragment
- */
-
 @AndroidEntryPoint
-class PagingDetailFragment : Fragment() {
-    private lateinit var binding: FragmentPagingDetailBinding
-    private val viewModel: PagingDetailViewModel by viewModels()
-    val args: PagingDetailFragmentArgs by navArgs()
+class WeatherDetailFragment : Fragment() {
+    private lateinit var binding: FragmentWeatherDetailBinding
+    private val viewModel: WeatherDetailViewModel by viewModels()
+    val args: WeatherDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,7 +24,7 @@ class PagingDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         if (this::binding.isInitialized.not()) {
-            binding = FragmentPagingDetailBinding.inflate(inflater, container, false)
+            binding = FragmentWeatherDetailBinding.inflate(inflater, container, false)
         }
         return binding.root
     }

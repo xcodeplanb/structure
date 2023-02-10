@@ -4,17 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.MainShareViewModel
+import com.example.structure.R
 import com.example.structure.api.Resource
+import com.example.structure.data.model.UserItem
 import com.example.structure.data.model.Weather
 import com.example.structure.databinding.FragmentWeatherBinding
+import com.example.structure.ui.paging.PagingFragmentDirections
 import com.example.structure.util.LogUtil
 import com.example.structure.util.repeatOnStarted
 import com.xwray.groupie.GroupieAdapter
+import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.Section
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +31,7 @@ class WhetherFragment : Fragment() {
     private lateinit var groupAdapter: GroupieAdapter
     private val viewModel: WeatherViewModel by viewModels()
     private val mainShareViewModel: MainShareViewModel by activityViewModels()
-    private var boolean  = false
+    private var boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,11 +72,12 @@ class WhetherFragment : Fragment() {
 //                //To Do
 //            }
 //        }
-
     }
 
     private fun setUpAdapter() {
-        groupAdapter = GroupieAdapter()
+        groupAdapter = GroupieAdapter().apply {
+            setOnItemClickListener(onItemClickListener)
+        }
         binding.weatherRecyclerview.apply {
             layoutManager = LinearLayoutManager(binding.weatherRecyclerview.context)
             adapter = groupAdapter
@@ -86,6 +93,18 @@ class WhetherFragment : Fragment() {
             sections.add(section)
         }
         return sections
+    }
+
+    private val onItemClickListener = OnItemClickListener { item, _ ->
+        if (item is WeatherItem) {
+            activity?.let { activity ->
+                activity.findNavController(R.id.nav_main).navigate(
+                    WhetherFragmentDirections.actionWeatherScreenToWeatherDetailScreen(
+                        UserItem((""), (""))
+                    )
+                )
+            }
+        }
     }
 
     companion object {

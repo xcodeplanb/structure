@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.R
 import com.example.structure.data.model.UserItem
 import com.example.structure.databinding.FragmentPagingBinding
-import com.example.structure.util.LogUtil
 import com.example.structure.util.hideSoftKeyboard
 import com.example.structure.util.repeatOnStarted
 import com.example.structure.util.textChangesToFlow
