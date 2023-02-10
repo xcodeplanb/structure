@@ -22,15 +22,18 @@ class WeatherViewModel @Inject constructor(private val weatherRepository: Weathe
      **/
     val exclude = "current,minutely,hourly,alerts"
 
-    val seoul = weatherRepository.getWeatherWithFlow(OPEN_WEATHER_URL,
+    val seoul = weatherRepository.getWeatherWithFlow(
+        OPEN_WEATHER_URL,
         37.5666791, 126.9782914, exclude, APP_ID
     )
 
-    val london = weatherRepository.getWeatherWithFlow(OPEN_WEATHER_URL,
+    val london = weatherRepository.getWeatherWithFlow(
+        OPEN_WEATHER_URL,
         51.509865, -0.118092, exclude, APP_ID
     )
 
-    val chicago = weatherRepository.getWeatherWithFlow(OPEN_WEATHER_URL,
+    val chicago = weatherRepository.getWeatherWithFlow(
+        OPEN_WEATHER_URL,
         41.8379, -87.6828, exclude, APP_ID
     )
 

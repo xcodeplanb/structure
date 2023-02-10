@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.structure.ui.paging.PagingDetailViewModel" />
+            type="com.example.structure.ui.whether.WeatherDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +30,6 @@
             tools:text="홍길동" />
 
         <ImageView
-            tools:background="@drawable/ic_launcher_foreground"
             android:id="@+id/avatarImageView"
             android:layout_width="50dp"
             android:layout_height="50dp"

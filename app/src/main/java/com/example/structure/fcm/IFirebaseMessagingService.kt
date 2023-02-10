@@ -117,7 +117,6 @@ class IFirebaseMessagingService : FirebaseMessagingService() {
      * @param messageBody FCM message body received.
      */
     private fun sendNotification(remoteMessage: RemoteMessage) {
-        LogUtil.log("TAG", remoteMessage.data.toString())
         val title = remoteMessage.data["title"]
         val message = remoteMessage.data["message"]
 

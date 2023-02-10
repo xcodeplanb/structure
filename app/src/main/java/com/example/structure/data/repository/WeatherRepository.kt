@@ -6,6 +6,7 @@ import com.example.structure.api.WebService
 import com.example.structure.data.repository.base.BaseRepository
 import com.example.structure.data.model.Weather
 import com.example.structure.di.IoDispatcher
+import com.example.structure.util.LogUtil
 import com.example.structure.util.getDateText
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,13 @@ class WeatherRepository @Inject constructor(
     /**
      * livedata, type recyclerView
      */
-    suspend fun getWeatherWithLiveData(url: String,lat: Double, lon: Double, exclude: String, appId: String) =
+    suspend fun getWeatherWithLiveData(
+        url: String,
+        lat: Double,
+        lon: Double,
+        exclude: String,
+        appId: String
+    ) =
         safeApiCall {
             val weatherVo = webService.getWeather(url, lat, lon, exclude, appId)
             weatherVo.daily.forEachIndexed { index, dailyItem ->
@@ -50,17 +57,17 @@ class WeatherRepository @Inject constructor(
     ): Flow<Resource<Weather>> = flow {
         emit(
             safeApiCall {
-            val weatherVo = webService.getWeather(url, lat, lon, exclude, appId)
-            weatherVo.daily.forEach { dailyItem ->
-                dailyItem.timezoneText = getDateText(dailyItem.dt * 1000L, weatherVo.timezone)
-                dailyItem.weather?.get(0)?.iconUrl =
-                    ICON_URL + "${dailyItem.weather?.get(0)?.icon}.png"
-                dailyItem.temp?.celsiusMin =
-                    ((dailyItem.temp?.min ?: 0.0) - 273.15).toInt().toString() + "\u00B0C"
-                dailyItem.temp?.celsiusMax =
-                    ((dailyItem.temp?.max ?: 0.0) - 273.15).toInt().toString() + "\u00B0C"
-            }
-            weatherVo
-        })
+                val weatherVo = webService.getWeather(url, lat, lon, exclude, appId)
+                weatherVo.daily.forEach { dailyItem ->
+                    dailyItem.timezoneText = getDateText(dailyItem.dt * 1000L, weatherVo.timezone)
+                    dailyItem.weather?.get(0)?.iconUrl =
+                        ICON_URL + "${dailyItem.weather?.get(0)?.icon}.png"
+                    dailyItem.temp?.celsiusMin =
+                        ((dailyItem.temp?.min ?: 0.0) - 273.15).toInt().toString() + "\u00B0C"
+                    dailyItem.temp?.celsiusMax =
+                        ((dailyItem.temp?.max ?: 0.0) - 273.15).toInt().toString() + "\u00B0C"
+                }
+                weatherVo
+            })
     }.flowOn(ioDispatcher)
 }

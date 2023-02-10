@@ -9,7 +9,14 @@
         android:id="@+id/whetherScreen"
         android:name="com.example.structure.ui.whether.WhetherFragment"
         android:label="whetherScreen"
-        tools:layout="@layout/fragment_weather"/>
+        tools:layout="@layout/fragment_weather">
+
+        <action
+            android:id="@+id/action_weatherScreen_to_weatherDetailScreen"
+            app:destination="@id/weatherDetailScreen"
+            app:launchSingleTop="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/pagingScreen"
@@ -29,6 +36,18 @@
         android:name="com.example.structure.ui.paging.PagingDetailFragment"
         android:label="pagingDetailScreen"
         tools:layout="@layout/fragment_paging_detail">
+
+        <argument
+            android:name="userItem"
+            app:argType="com.example.structure.data.model.UserItem"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherDetailScreen"
+        android:name="com.example.structure.ui.whether.WeatherDetailFragment"
+        android:label="weatherDetailScreen"
+        tools:layout="@layout/fragment_weather_detail">
 
         <argument
             android:name="userItem"
