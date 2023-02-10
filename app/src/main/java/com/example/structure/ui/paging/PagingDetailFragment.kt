@@ -33,7 +33,6 @@ class PagingDetailFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        LogUtil.log("TAG", "args: ${args.userItem?.toString()}")
         args.userItem?.let { userArg ->
             viewModel.setUserArg(userArg)
         }

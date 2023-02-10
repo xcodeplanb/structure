@@ -1,8 +1,6 @@
 package com.example.structure.ui.paging
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +9,6 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.paging.LoadState
@@ -20,11 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.R
 import com.example.structure.data.model.UserItem
 import com.example.structure.databinding.FragmentPagingBinding
-import com.example.structure.onEachEvent
 import com.example.structure.util.LogUtil
 import com.example.structure.util.hideSoftKeyboard
+import com.example.structure.util.repeatOnStarted
+import com.example.structure.util.textChangesToFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,45 +31,34 @@ class PagingFragment : Fragment() {
     private lateinit var pagingAdapter: PagingAdapter
     private val pagingViewModel: PagingViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        if (this::binding.isInitialized.not()) {
+//        if (this::binding.isInitialized.not()) {
             binding = FragmentPagingBinding.inflate(inflater, container, false)
-        }
+//        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if (binding.lifecycleOwner == null) {
             binding.viewModel = pagingViewModel
             binding.lifecycleOwner = viewLifecycleOwner
             setUpAdapter()
             setUpListener()
             setUpObserver()
-        }
     }
 
     private fun setUpObserver() {
-//        repeatOnStarted {
-//            pagingViewModel.imageItem.collectLatest { data ->
-//                LogUtil.log("TAG", "imageItems: $data")
-//                pagingAdapter.submitData(data)
-//            }
-//        }
-
-        lifecycleScope.launch {
-            pagingViewModel.userItems.onEachEvent { data ->
+        repeatOnStarted {
+            pagingViewModel.userItems.collectLatest { data ->
                 pagingAdapter.submitData(data)
-            }.collect()
+            }
         }
 
-        pagingViewModel.retryEvent.observe(viewLifecycleOwner, Observer {
+        pagingViewModel.retryEvent.observe(viewLifecycleOwner) {
             pagingAdapter.retry()
-        })
+        }
     }
 
     private fun setUpAdapter() {
@@ -95,7 +82,6 @@ class PagingFragment : Fragment() {
         }
 
         pagingAdapter.addLoadStateListener { loadState ->
-            LogUtil.log("TAG", "loadState: ${loadState.source}")
             binding.recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
             binding.emptyView.isVisible =
                 loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && pagingAdapter.itemCount == 0
@@ -114,28 +100,18 @@ class PagingFragment : Fragment() {
     }
 
     private fun setUpListener() {
-        LogUtil.log("TAG", ": $")
-        binding.textInputEditText.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                LogUtil.log("TAG", "onTextChanged: $text")
-                val searchWord = text.toString().trim()
-                pagingViewModel.setSearchQuery(searchWord)
-
-                if (searchWord == "") {
-                    lifecycleScope.launch {
-                        clearAdapter()
-                    }
+        lifecycleScope.launch {
+            val editTextFlow = binding.textInputEditText.textChangesToFlow()
+            editTextFlow
+                .debounce(1000)
+                .filter {
+                    it?.length != 0
                 }
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-
-            }
-        })
+                .onEach {
+                    pagingViewModel.searchQuery(it.toString().trim())
+                }
+                .launchIn(this)
+        }
 
         binding.textInputEditText.setOnEditorActionListener { view: View, actionId: Int, _: KeyEvent? ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
