@@ -28,19 +28,16 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
 //    val query: SharedFlow<String> = _query.asSharedFlow()
 
     private val _query = MutableStateFlow("")
-    val movies: StateFlow<PagingData<PagingUiModel>> = _query.flatMapLatest { query ->
-        LogUtil.log("TAG", ": $")
+    val users: StateFlow<PagingData<PagingUiModel>> = _query.flatMapLatest { query ->
         searchMovies(query)
     }.stateIn(
         viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty()
     )
 
     private fun searchMovies(query: String): Flow<PagingData<PagingUiModel>> {
-        LogUtil.log("TAG", ": $")
         return pagingRepository.searchGithubUser(
             hashMapOf("q" to query), token = GITHUB_TOKEN
         ).map { pagingData ->
-            LogUtil.log("TAG", ": $")
             pagingData.map {
                 PagingUiModel.UserItem(it)
             }
@@ -59,13 +56,7 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
     }
 
     fun searchQuery(word: String) {
-        LogUtil.log("TAG", ": $")
         _query.value = word
-        LogUtil.log("TAG", "_query/value: ${_query.value}")
-    }
-
-    fun setQuery(query: String) {
-
     }
 
 //    fun onTextChanged(

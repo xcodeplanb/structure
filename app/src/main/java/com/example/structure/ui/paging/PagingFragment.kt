@@ -62,7 +62,7 @@ class PagingFragment : Fragment() {
 //        }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            pagingViewModel.movies
+            pagingViewModel.users
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collectLatest { data -> pagingAdapter.submitData(data) }
         }
