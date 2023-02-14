@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -97,22 +98,22 @@ class PagingFragment : Fragment() {
             binding.emptyView.isVisible =
                 loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && pagingAdapter.itemCount == 0
 
-//            val errorState = loadState.source.append as? LoadState.Error
-//                ?: loadState.source.prepend as? LoadState.Error
-//                ?: loadState.source.refresh as? LoadState.Error
-//            errorState?.let {
-//                Toast.makeText(
-//                    activity,
-//                    "${it.error}",
-//                    Toast.LENGTH_LONG
-//                ).show()
-//            }
+            //오류 메세지 작업중
+            val errorState = loadState.source.append as? LoadState.Error
+                ?: loadState.source.prepend as? LoadState.Error
+                ?: loadState.source.refresh as? LoadState.Error
+            errorState?.let {
+                Toast.makeText(
+                    activity,
+                    "${it.error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
     private fun setUpListener() {
         binding.textInputEditText.doAfterTextChanged {
-            LogUtil.log("TAG", ": ${it.toString().trim()}")
             pagingViewModel.searchQuery(it.toString().trim())
         }
 

@@ -1,4 +1,4 @@
-package com.example.structure.navi
+package com.example.structure.util.navi
 
 import android.os.Bundle
 import android.view.Menu

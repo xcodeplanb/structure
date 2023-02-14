@@ -10,7 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.structure.R
 import com.example.structure.databinding.FragmentHomeBinding
-import com.example.structure.navi.HomeNavigationUI
+import com.example.structure.util.navi.HomeNavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
