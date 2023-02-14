@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 class WeatherDetailViewModel() :
     ViewModel(), LifecycleObserver {
 
-    val userItem = MutableStateFlow<UserItem?>(null)
+    private val _userItem = MutableStateFlow<UserItem?>(null)
+    val userItem get() = _userItem
 
     fun setUserArg(arg: UserItem) {
         userItem.value = arg

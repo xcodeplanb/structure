@@ -25,9 +25,7 @@ class PagingDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (this::binding.isInitialized.not()) {
-            binding = FragmentPagingDetailBinding.inflate(inflater, container, false)
-        }
+        binding = FragmentPagingDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.paging.LoadState
@@ -17,11 +20,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.R
 import com.example.structure.data.model.UserItem
 import com.example.structure.databinding.FragmentPagingBinding
+import com.example.structure.ui.HomeFragmentDirections
+import com.example.structure.util.LogUtil
 import com.example.structure.util.hideSoftKeyboard
-import com.example.structure.util.repeatOnStarted
-import com.example.structure.util.textChangesToFlow
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,29 +36,38 @@ class PagingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-//        if (this::binding.isInitialized.not()) {
-            binding = FragmentPagingBinding.inflate(inflater, container, false)
-//        }
+        binding = FragmentPagingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-            binding.viewModel = pagingViewModel
-            binding.lifecycleOwner = viewLifecycleOwner
-            setUpAdapter()
-            setUpListener()
-            setUpObserver()
+        binding.viewModel = pagingViewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+        setUpAdapter()
+        setUpListener()
+        setUpObserver()
+
+        LogUtil.log("TAG", ": $")
     }
 
     private fun setUpObserver() {
-        repeatOnStarted {
-            pagingViewModel.userItems.collectLatest { data ->
-                pagingAdapter.submitData(data)
-            }
+//        repeatOnStarted {
+//            pagingViewModel.userItems.observe(requireActivity()) { data ->
+//                LogUtil.log("TAG", ": $")
+//                viewLifecycleOwner.lifecycleScope.launch {
+//                    pagingAdapter.submitData(data)
+//                }
+//            }
+//        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            pagingViewModel.movies
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
+                .collectLatest { data -> pagingAdapter.submitData(data) }
         }
 
-        pagingViewModel.retryEvent.observe(viewLifecycleOwner) {
+        pagingViewModel.retryEvent.observe(requireActivity()) {
             pagingAdapter.retry()
         }
     }
@@ -64,7 +76,7 @@ class PagingFragment : Fragment() {
         pagingAdapter = PagingAdapter(pagingViewModel) { item ->
             activity?.let { activity ->
                 activity.findNavController(R.id.nav_main).navigate(
-                    PagingFragmentDirections.actionPagingListToPagingDetail(
+                    HomeFragmentDirections.actionWeatherScreenToWeatherDetailScreen(
                         UserItem((item?.login ?: ""), (item?.avatarUrl ?: ""))
                     )
                 )
@@ -99,17 +111,9 @@ class PagingFragment : Fragment() {
     }
 
     private fun setUpListener() {
-        lifecycleScope.launch {
-            val editTextFlow = binding.textInputEditText.textChangesToFlow()
-            editTextFlow
-                .debounce(1000)
-                .filter {
-                    it?.length != 0
-                }
-                .onEach {
-                    pagingViewModel.searchQuery(it.toString().trim())
-                }
-                .launchIn(this)
+        binding.textInputEditText.doAfterTextChanged {
+            LogUtil.log("TAG", ": ${it.toString().trim()}")
+            pagingViewModel.searchQuery(it.toString().trim())
         }
 
         binding.textInputEditText.setOnEditorActionListener { view: View, actionId: Int, _: KeyEvent? ->

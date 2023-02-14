@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/whetherScreen">
+
+    <fragment
+        android:id="@+id/whetherScreen"
+        android:name="com.example.structure.ui.whether.WhetherFragment"
+        android:label="whetherScreen"
+        tools:layout="@layout/fragment_weather">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/pagingScreen"
+        android:name="com.example.structure.ui.paging.PagingFragment"
+        android:label="pagingScreen"
+        tools:layout="@layout/fragment_paging">
+
+    </fragment>
+
+</navigation>

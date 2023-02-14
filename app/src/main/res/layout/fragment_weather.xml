@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>\
+    <data>
         <import type="android.view.View"/>
         <variable
             name="viewModel"
@@ -26,7 +26,7 @@
             android:overScrollMode="never"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/weather_list_item_header" />
+            tools:listitem="@layout/weather_list_item" />
 
         <ProgressBar
             showLoading="@{viewModel.fullList}"

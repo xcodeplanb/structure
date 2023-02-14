@@ -27,11 +27,11 @@ fun Fragment.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
     }
 }
 
-//fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
-//    lifecycleScope.launch {
-//        repeatOnLifecycle(Lifecycle.State.STARTED, block)
-//    }
-//}
+fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
+    lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.STARTED, block)
+    }
+}
 
 fun EditText.textChangesToFlow(): Flow<CharSequence?> {
     return callbackFlow {

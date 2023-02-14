@@ -13,7 +13,6 @@
 //) : PagingSource<Int, GithubUser.ItemsItem>() {
 //
 //    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, GithubUser.ItemsItem> {
-//        LogUtil.log("TAG", ": $")
 //        val page = params.key ?: START_PAGE_INDEX
 //        queryMap["page"] = page
 //

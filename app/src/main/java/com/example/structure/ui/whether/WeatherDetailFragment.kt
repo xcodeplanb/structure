@@ -7,25 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.example.structure.databinding.FragmentPagingDetailBinding
 import com.example.structure.databinding.FragmentWeatherDetailBinding
-import com.example.structure.util.LogUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class WeatherDetailFragment : Fragment() {
     private lateinit var binding: FragmentWeatherDetailBinding
     private val viewModel: WeatherDetailViewModel by viewModels()
-    val args: WeatherDetailFragmentArgs by navArgs()
+    private val args: WeatherDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (this::binding.isInitialized.not()) {
-            binding = FragmentWeatherDetailBinding.inflate(inflater, container, false)
-        }
+        binding = FragmentWeatherDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -16,15 +16,18 @@ class GithubUserPagingSource(
         val page = params.key ?: START_PAGE_INDEX
         queryMap["page"] = page
 
+        LogUtil.log("TAG", ": $")
+
         return try {
             val response = webService.searchUser(token, queryMap)
             val names = response.items
-            val totalCount = response.totalCount
+
+            LogUtil.log("TAG", "names: $names")
 
             LoadResult.Page(
                 data = names,
                 prevKey = if (page == START_PAGE_INDEX) null else page - 1,
-                nextKey = if (totalCount == 0) null else page + 1
+                nextKey = if (names.isEmpty()) null else page + 1
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

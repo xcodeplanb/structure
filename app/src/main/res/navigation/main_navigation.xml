@@ -3,32 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/whetherScreen">
+    app:startDestination="@id/homeScreen">
 
     <fragment
-        android:id="@+id/whetherScreen"
-        android:name="com.example.structure.ui.whether.WhetherFragment"
+        android:id="@+id/homeScreen"
+        android:name="com.example.structure.ui.HomeFragment"
         android:label="whetherScreen"
-        tools:layout="@layout/fragment_weather">
+        tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_weatherScreen_to_weatherDetailScreen"
             app:destination="@id/weatherDetailScreen"
             app:launchSingleTop="true" />
 
-    </fragment>
-
-    <fragment
-        android:id="@+id/pagingScreen"
-        android:name="com.example.structure.ui.paging.PagingFragment"
-        android:label="pagingScreen"
-        tools:layout="@layout/fragment_paging">
-
         <action
             android:id="@+id/action_pagingList_to_pagingDetail"
             app:destination="@id/pagingDetailScreen"
             app:launchSingleTop="true" />
-
     </fragment>
 
     <fragment

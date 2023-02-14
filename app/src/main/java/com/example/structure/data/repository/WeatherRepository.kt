@@ -6,7 +6,6 @@ import com.example.structure.api.WebService
 import com.example.structure.data.repository.base.BaseRepository
 import com.example.structure.data.model.Weather
 import com.example.structure.di.IoDispatcher
-import com.example.structure.util.LogUtil
 import com.example.structure.util.getDateText
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
