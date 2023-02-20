@@ -16,13 +16,9 @@ class GithubUserPagingSource(
         val page = params.key ?: START_PAGE_INDEX
         queryMap["page"] = page
 
-        LogUtil.log("TAG", ": $")
-
         return try {
             val response = webService.searchUser(token, queryMap)
             val names = response.items
-
-            LogUtil.log("TAG", "names: $names")
 
             LoadResult.Page(
                 data = names,
