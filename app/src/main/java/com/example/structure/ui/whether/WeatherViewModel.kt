@@ -2,12 +2,11 @@ package com.example.structure.ui.whether
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.structure.APP_ID
+import com.example.structure.open_weather_app_id
 import com.example.structure.OPEN_WEATHER_URL
 import com.example.structure.api.Resource
 import com.example.structure.data.repository.WeatherRepository
 import com.example.structure.data.model.Weather
-import com.example.structure.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.combine
@@ -25,17 +24,17 @@ class WeatherViewModel @Inject constructor(private val weatherRepository: Weathe
 
     val seoul = weatherRepository.getWeatherWithFlow(
         OPEN_WEATHER_URL,
-        37.5666791, 126.9782914, exclude, APP_ID
+        37.5666791, 126.9782914, exclude, open_weather_app_id
     )
 
     val london = weatherRepository.getWeatherWithFlow(
         OPEN_WEATHER_URL,
-        51.509865, -0.118092, exclude, APP_ID
+        51.509865, -0.118092, exclude, open_weather_app_id
     )
 
     val chicago = weatherRepository.getWeatherWithFlow(
         OPEN_WEATHER_URL,
-        41.8379, -87.6828, exclude, APP_ID
+        41.8379, -87.6828, exclude, open_weather_app_id
     )
 
     val fullList = combine(seoul, london, chicago) { seoul, london, chicago ->

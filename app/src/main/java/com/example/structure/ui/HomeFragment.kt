@@ -10,8 +10,14 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.structure.R
 import com.example.structure.databinding.FragmentHomeBinding
+import com.example.structure.util.LogUtil
 import com.example.structure.util.navi.HomeNavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

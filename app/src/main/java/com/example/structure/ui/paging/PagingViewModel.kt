@@ -5,9 +5,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
-import com.example.structure.GITHUB_TOKEN
+import com.example.structure.github_token
 import com.example.structure.data.repository.GithubRepository
-import com.example.structure.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -33,7 +32,7 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
 
     private fun searchMovies(query: String): Flow<PagingData<PagingUiModel>> {
         return pagingRepository.searchGithubUser(
-            hashMapOf("q" to query), token = GITHUB_TOKEN
+            hashMapOf("q" to query), token = github_token
         ).map { pagingData ->
             pagingData.map {
                 PagingUiModel.UserItem(it)
