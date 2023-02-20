@@ -1,6 +1,7 @@
 package com.example.structure.ui.paging
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -49,23 +50,16 @@ class PagingFragment : Fragment() {
         setUpListener()
         setUpObserver()
 
-        LogUtil.log("TAG", ": $")
     }
 
     private fun setUpObserver() {
-//        repeatOnStarted {
-//            pagingViewModel.userItems.observe(requireActivity()) { data ->
-//                LogUtil.log("TAG", ": $")
-//                viewLifecycleOwner.lifecycleScope.launch {
-//                    pagingAdapter.submitData(data)
-//                }
-//            }
-//        }
-
         viewLifecycleOwner.lifecycleScope.launch {
-            pagingViewModel.users
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collectLatest { data -> pagingAdapter.submitData(data) }
+            pagingViewModel.users.flowWithLifecycle(
+                viewLifecycleOwner.lifecycle,
+                Lifecycle.State.STARTED
+            ).collectLatest { data ->
+                pagingAdapter.submitData(data)
+            }
         }
 
         pagingViewModel.retryEvent.observe(requireActivity()) {
@@ -96,7 +90,10 @@ class PagingFragment : Fragment() {
         pagingAdapter.addLoadStateListener { loadState ->
             binding.recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
             binding.emptyView.isVisible =
-                loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && pagingAdapter.itemCount == 0
+                loadState.source.refresh is LoadState.NotLoading
+                        && loadState.append.endOfPaginationReached
+                        && pagingAdapter.itemCount == 0
+                        && pagingViewModel.getSearchQuery().isNotEmpty()
 
             //오류 메세지 작업중
             val errorState = loadState.source.append as? LoadState.Error
