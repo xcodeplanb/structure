@@ -71,7 +71,9 @@ class PagingAdapter(val viewModel: PagingViewModel, val callback: (GithubUser.It
 
         private val diffCallback = object : DiffUtil.ItemCallback<PagingUiModel>() {
             override fun areItemsTheSame(oldItem: PagingUiModel, newItem: PagingUiModel): Boolean {
-                return (oldItem is PagingUiModel.UserItem && newItem is PagingUiModel.UserItem && oldItem.items.id == newItem.items.id)
+                return (oldItem is PagingUiModel.UserItem && newItem is PagingUiModel.UserItem && oldItem.item.id == newItem.item.id) ||
+                (oldItem is PagingUiModel.SeparatorItem && newItem is PagingUiModel.SeparatorItem &&
+                        oldItem.item == newItem.item)
             }
 
             override fun areContentsTheSame(
