@@ -19,20 +19,17 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
     private val _retryEvent = MutableLiveData<Boolean>()
     val retryEvent: LiveData<Boolean> get() = _retryEvent
 
-    private val _searchQuery = MutableLiveData("")
-    //    private val _query = MutableSharedFlow<String>(
-//        replay = 1,
-//        extraBufferCapacity = 0,
-//        onBufferOverflow = BufferOverflow.DROP_OLDEST
-//    )
-//    val query: SharedFlow<String> = _query.asSharedFlow()
-
     private val _query = MutableStateFlow("")
-    val users: StateFlow<PagingData<PagingUiModel>> = _query.flatMapLatest { query ->
-        searchMovies(query)
-    }.stateIn(
-        viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty()
-    )
+    val users: StateFlow<PagingData<PagingUiModel>> = _query
+        .flatMapLatest { query ->
+            if (query.isNotEmpty()) {
+                searchMovies(query)
+            } else {
+                flowOf(PagingData.empty())
+            }
+        }.stateIn(
+            viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty()
+        )
 
     private fun searchMovies(query: String): Flow<PagingData<PagingUiModel>> {
         return pagingRepository.searchGithubUser(
@@ -57,6 +54,10 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
 
     fun searchQuery(word: String) {
         _query.value = word
+    }
+
+    fun getSearchQuery(): String {
+        return _query.value
     }
 
 //    fun onTextChanged(
