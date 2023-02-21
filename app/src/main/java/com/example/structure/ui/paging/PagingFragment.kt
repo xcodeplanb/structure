@@ -1,7 +1,6 @@
 package com.example.structure.ui.paging
 
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +22,6 @@ import com.example.structure.R
 import com.example.structure.data.model.UserItem
 import com.example.structure.databinding.FragmentPagingBinding
 import com.example.structure.ui.HomeFragmentDirections
-import com.example.structure.util.LogUtil
 import com.example.structure.util.hideSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
