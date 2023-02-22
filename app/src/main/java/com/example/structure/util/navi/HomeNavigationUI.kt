@@ -24,6 +24,14 @@ import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigationrail.NavigationRailView
 import java.lang.ref.WeakReference
 
+/*//하단 바텀네비게이션 ui 변경에 용이하도록 navController만 연결 (진행중)
+//    fun onClickBottomNav(view: View) {
+//        val popupMenu = PopupMenu(activity, null)
+//        val menu: Menu = popupMenu.menu
+//        activity?.menuInflater?.inflate(R.menu.home_menu, menu)
+//        HomeNavigationUI.changeNavDestination(menu.findItem(view.id), navController)
+//    }*/
+
 object HomeNavigationUI {
 
 }

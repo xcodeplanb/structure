@@ -31,12 +31,6 @@ class WhetherFragment : Fragment() {
     private lateinit var groupAdapter: GroupieAdapter
     private val viewModel: WeatherViewModel by viewModels()
     private val mainShareViewModel: MainShareViewModel by activityViewModels()
-    private var boolean = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        boolean = true
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
