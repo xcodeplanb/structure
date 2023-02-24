@@ -16,7 +16,7 @@ import javax.inject.Inject
 class WeatherRepository @Inject constructor(
     private val webService: WebService, @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : BaseRepository() {
-
+ 
     /**
      * livedata, type recyclerView
      */
