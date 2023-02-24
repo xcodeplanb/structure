@@ -18,5 +18,3 @@ data class CommonListResponse<T>(
     val data: List<T>,
     var error: ErrorResponse
 )
-
-

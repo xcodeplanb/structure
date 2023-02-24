@@ -86,6 +86,7 @@ class PagingFragment : Fragment() {
         }
 
         pagingAdapter.addLoadStateListener { loadState ->
+            binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
 //            binding.recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
             binding.emptyView.isVisible =
                 loadState.source.refresh is LoadState.NotLoading
