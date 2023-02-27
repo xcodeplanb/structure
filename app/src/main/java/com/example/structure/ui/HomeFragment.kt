@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    //하단 바텀네비게이션 ui 변경에 용이하도록 navController만 연결 (진행중)
+    //하단 바텀네비게이션 ui 변경에 용이하도록 navController만 연결 (진행)
     fun onClickBottomNav(view: View) {
 //        val popupMenu = PopupMenu(activity, null)
 //        val menu: Menu = popupMenu.menu

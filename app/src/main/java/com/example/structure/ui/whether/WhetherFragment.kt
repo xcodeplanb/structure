@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.MainShareViewModel
 import com.example.structure.R
 import com.example.structure.api.Resource
+import com.example.structure.collectLatestNotNull
 import com.example.structure.data.model.UserItem
 import com.example.structure.data.model.Weather
 import com.example.structure.databinding.FragmentWeatherBinding

@@ -1,32 +1,18 @@
 package com.example.structure.data.repository
 
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
+import com.example.structure.api.Resource
 import com.example.structure.api.WebService
 import com.example.structure.data.model.GithubUser
-import com.example.structure.util.LogUtil
-import kotlinx.coroutines.flow.Flow
+import com.example.structure.data.repository.base.BaseRepository
+import com.example.structure.di.IoDispatcher
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class GithubRepository @Inject constructor(private val webService: WebService) {
-    fun searchGithubUser(map: HashMap<String, Any>, token: String): Flow<PagingData<GithubUser.ItemsItem>> {
-        LogUtil.log("TAG", ": $")
-        return Pager(config = PagingConfig(
-            pageSize = 10, enablePlaceholders = true
-        ), pagingSourceFactory = {
-            LogUtil.log("TAG", "token: $token")
-            GithubUserPagingSource(
-                webService, map, token
-            )
-        }).flow
-    }
-
-//    fun searchGithubRepositoy(map: HashMap<String, Any>, token: String) = Pager(config = PagingConfig(
-//        pageSize = 10, enablePlaceholders = true
-//    ), pagingSourceFactory = {
-//        GithubRepositoyPagingSource(
-//            webService, map, token
-//        )
-//    }).flow
+class GithubRepository @Inject constructor(
+    private val webService: WebService, @IoDispatcher private val ioDispatcher: CoroutineDispatcher
+) : BaseRepository() {
+    suspend fun searchGithubUser(token: String, map: HashMap<String, Any>): Resource<GithubUser> =
+        safeApiCall {
+            webService.searchUser(token, map)
+        }
 }

@@ -19,6 +19,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.R
+import com.example.structure.collectLatestNotNull
 import com.example.structure.data.model.UserItem
 import com.example.structure.databinding.FragmentPagingBinding
 import com.example.structure.ui.HomeFragmentDirections
@@ -92,7 +93,6 @@ class PagingFragment : Fragment() {
                 loadState.source.refresh is LoadState.NotLoading
                         && loadState.append.endOfPaginationReached
                         && pagingAdapter.itemCount == 0
-                        && pagingViewModel.getSearchQuery().isNotEmpty()
 
             //오류 메세지 작업중
             val errorState = loadState.source.append as? LoadState.Error

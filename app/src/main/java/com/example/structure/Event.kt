@@ -2,8 +2,10 @@ package com.example.structure
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.transform
+import com.bumptech.glide.load.engine.Resource
+import com.example.structure.util.LogUtil
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 
 open class Event<out T>(private val content: T) {
     var hasBeenHandled = false
@@ -25,9 +27,7 @@ fun <T> LiveData<out Event<T>>.observeEvent(owner: LifecycleOwner, onEventUnhand
     observe(owner) { it?.getContentIfNotHandled()?.let(onEventUnhandled) }
 }
 
-fun <T> Flow<Event<T?>>.onEachEvent(action: suspend (T) -> Unit): Flow<T> = transform { value ->
-    value.getContentIfNotHandled()?.let {
-        action(it)
-        return@transform emit(it)
-    }
+@OptIn(ExperimentalCoroutinesApi::class)
+public suspend fun <T> Flow<T>.collectLatestNotNull(action: suspend (value: T) -> Unit) {
+    mapLatest(action).buffer(0).collect()
 }
