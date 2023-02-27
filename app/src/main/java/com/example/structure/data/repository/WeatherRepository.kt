@@ -3,8 +3,8 @@ package com.example.structure.data.repository
 import com.example.structure.ICON_URL
 import com.example.structure.api.Resource
 import com.example.structure.api.WebService
-import com.example.structure.data.repository.base.BaseRepository
 import com.example.structure.data.model.Weather
+import com.example.structure.data.repository.base.safeApiCall
 import com.example.structure.di.IoDispatcher
 import com.example.structure.util.getDateText
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
     private val webService: WebService, @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-) : BaseRepository() {
+) {
  
     /**
      * livedata, type recyclerView

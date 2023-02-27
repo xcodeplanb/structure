@@ -46,7 +46,6 @@ class SplashFragment : Fragment() {
             FirebaseDatabase.getInstance().reference.child("ad")
         githubToken.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
-                LogUtil.log("TAG", "it $error")
             }
 
             override fun onDataChange(snapshot: DataSnapshot) {

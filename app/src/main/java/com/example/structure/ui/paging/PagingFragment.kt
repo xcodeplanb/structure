@@ -92,7 +92,6 @@ class PagingFragment : Fragment() {
                 loadState.source.refresh is LoadState.NotLoading
                         && loadState.append.endOfPaginationReached
                         && pagingAdapter.itemCount == 0
-                        && pagingViewModel.getSearchQuery().isNotEmpty()
 
             //오류 메세지 작업중
             val errorState = loadState.source.append as? LoadState.Error

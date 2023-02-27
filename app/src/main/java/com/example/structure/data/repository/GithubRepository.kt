@@ -11,11 +11,9 @@ import javax.inject.Inject
 
 class GithubRepository @Inject constructor(private val webService: WebService) {
     fun searchGithubUser(map: HashMap<String, Any>, token: String): Flow<PagingData<GithubUser.ItemsItem>> {
-        LogUtil.log("TAG", ": $")
         return Pager(config = PagingConfig(
             pageSize = 10, enablePlaceholders = true
         ), pagingSourceFactory = {
-            LogUtil.log("TAG", "token: $token")
             GithubUserPagingSource(
                 webService, map, token
             )

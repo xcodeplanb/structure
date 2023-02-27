@@ -7,7 +7,6 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.example.structure.data.repository.GithubRepository
 import com.example.structure.github_token
-import com.example.structure.util.LogUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -22,14 +21,15 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
     val retryEvent: LiveData<Boolean> get() = _retryEvent
 
     private val _query = MutableStateFlow("")
+
+    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
     val users: StateFlow<PagingData<PagingUiModel>> = _query
         .debounce(1000)
+        .filter {
+            it.isNotEmpty()
+        }
         .flatMapLatest { query ->
-            if (query.isNotEmpty()) {
-                searchMovies(query)
-            } else {
-                flowOf(PagingData.empty())
-            }
+            searchMovies(query)
         }.stateIn(
             viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty()
         )
@@ -57,10 +57,6 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
 
     fun searchQuery(word: String) {
         _query.value = word
-    }
-
-    fun getSearchQuery(): String {
-        return _query.value
     }
 
 //    fun onTextChanged(
