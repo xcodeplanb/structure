@@ -19,6 +19,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.structure.R
+import com.example.structure.collectLatestNotNull
 import com.example.structure.data.model.UserItem
 import com.example.structure.databinding.FragmentPagingBinding
 import com.example.structure.ui.HomeFragmentDirections
