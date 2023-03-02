@@ -9,7 +9,7 @@ import com.example.structure.data.repository.GithubRepository
 import com.example.structure.github_token
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
@@ -20,24 +20,29 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
     private val _retryEvent = MutableLiveData<Boolean>()
     val retryEvent: LiveData<Boolean> get() = _retryEvent
 
-    private val _query = MutableStateFlow("")
+    /**
+     * MutableSharedFlow 사용시
+     * [query].distinctUntilChanged() 추가
+     */
 
-    @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
-    val users: StateFlow<PagingData<PagingUiModel>> = _query
-        .debounce(1000)
+//    private val query = MutableSharedFlow<String>(
+//        replay = 0,
+//        extraBufferCapacity = 1,
+//        onBufferOverflow = BufferOverflow.DROP_OLDEST
+//    )
+
+    private val query = MutableStateFlow("")
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val searchList: Flow<PagingData<PagingUiModel>> = query
         .filter {
             it.isNotEmpty()
         }
         .flatMapLatest { query ->
-            searchMovies(query)
-        }.stateIn(
-            viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty()
-        )
-
-    private fun searchMovies(query: String): Flow<PagingData<PagingUiModel>> {
-        return pagingRepository.searchGithubUser(
-            hashMapOf("q" to query), token = github_token
-        ).map { pagingData ->
+            pagingRepository.searchGithubUser(
+                hashMapOf("q" to query), token = github_token
+            )
+        }.map { pagingData ->
             pagingData.map {
                 PagingUiModel.UserItem(it)
             }
@@ -49,14 +54,13 @@ class PagingViewModel @Inject constructor(private val pagingRepository: GithubRe
                 PagingUiModel.SeparatorItem("")
             }
         }.cachedIn(viewModelScope)
-    }
 
     fun retryEventTask() {
         _retryEvent.value = true
     }
 
     fun searchQuery(word: String) {
-        _query.value = word
+        query.value = word
     }
 
 //    fun onTextChanged(

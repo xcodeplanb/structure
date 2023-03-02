@@ -23,6 +23,7 @@ import com.example.structure.collectLatestNotNull
 import com.example.structure.data.model.UserItem
 import com.example.structure.databinding.FragmentPagingBinding
 import com.example.structure.ui.HomeFragmentDirections
+import com.example.structure.util.LogUtil
 import com.example.structure.util.hideSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -48,15 +49,15 @@ class PagingFragment : Fragment() {
         setUpAdapter()
         setUpListener()
         setUpObserver()
-
     }
 
     private fun setUpObserver() {
         viewLifecycleOwner.lifecycleScope.launch {
-            pagingViewModel.users.flowWithLifecycle(
+            pagingViewModel.searchList.flowWithLifecycle(
                 viewLifecycleOwner.lifecycle,
                 Lifecycle.State.STARTED
             ).collectLatest { data ->
+                LogUtil.log("TAG", "setUpObserver: ")
                 pagingAdapter.submitData(data)
             }
         }
@@ -88,7 +89,6 @@ class PagingFragment : Fragment() {
 
         pagingAdapter.addLoadStateListener { loadState ->
             binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-//            binding.recyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
             binding.emptyView.isVisible =
                 loadState.source.refresh is LoadState.NotLoading
                         && loadState.append.endOfPaginationReached
