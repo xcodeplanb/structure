@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/focusHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FOCUSHINT"
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="14dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:hint="HINT"
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:maxLength="10"
+            android:text="EDIT"
+            android:textColor="@color/color_000000"
+            android:textColorHint="@color/color_dddddd"
+            app:layout_constraintEnd_toStartOf="@+id/clearButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/focusHint" />
+
+        <View
+            android:id="@+id/underLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/color_dddddd"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+        <ImageView
+            android:id="@+id/clearButton"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:adjustViewBounds="true"
+            android:src="@android:drawable/ic_delete"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editText" />
+
+        <TextView
+            android:id="@+id/editError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="영문, 숫자, 특수문자는 사용할 수 없습니다."
+            android:textColor="@color/color_ff4857"
+            android:textSize="12dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/underLine" />
+
+        <TextView
+            android:id="@+id/editHelper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:text="최대 10자의 한글만 사용해 주세요."
+            android:textColor="@color/color_aaaaaa"
+            android:textSize="12dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/underLine" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

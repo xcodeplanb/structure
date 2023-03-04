@@ -1,4 +1,4 @@
-package com.example.structure.ui.common.widzet.itemdecoration
+package com.example.structure.ui.common
 
 import android.graphics.Rect
 import android.view.View
