@@ -81,8 +81,7 @@ class PagingFragment : Fragment() {
         with(binding) {
             recyclerView.layoutManager = LinearLayoutManager(activity)
             recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = pagingAdapter.withLoadStateHeaderAndFooter(
-                header = PagingLoadStateAdapter(pagingViewModel),
+            recyclerView.adapter = pagingAdapter.withLoadStateFooter(
                 footer = PagingLoadStateAdapter(pagingViewModel)
             )
         }

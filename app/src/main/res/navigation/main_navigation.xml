@@ -61,4 +61,11 @@
             app:nullable="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/textInputLayoutScreen"
+        android:name="com.example.structure.ui.widzet.TextInputLayoutFragment"
+        android:label="textInputLayoutScreen"
+        tools:layout="@layout/layout_textinputlayout">
+    </fragment>
+
 </navigation>
