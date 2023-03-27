@@ -56,9 +56,6 @@ class TextInputLayoutFragment : Fragment() {
                 false
             }
         }
-
-
-        LogUtil.log("TAG", ": $")
     }
 
     companion object {

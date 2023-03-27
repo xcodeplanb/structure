@@ -46,8 +46,6 @@ class WhetherFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         setUpObserver()
         setUpAdapter()
-
-        LogUtil.log("TAG", ": $")
     }
 
     private fun setUpObserver() {

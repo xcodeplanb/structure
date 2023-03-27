@@ -50,7 +50,6 @@ class SplashFragment : Fragment() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 snapshot.getValue(Ad::class.java)?.let {
-                    LogUtil.log("TAG", "it $it")
                     open_weather_app_id = it.open_weather_app_id
                     github_token = it.github_token
                     findNavController().navigate(R.id.action_splashScreen_to_homeScreen)

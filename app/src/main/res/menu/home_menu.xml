@@ -18,10 +18,10 @@
     <item
         android:id="@+id/whetherScreen"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="" />
+        android:title="1" />
     <item
         android:id="@+id/pagingScreen"
         android:icon="@android:drawable/ic_menu_camera"
-        android:title="" />
+        android:title="2" />
 
 </menu>

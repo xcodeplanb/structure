@@ -57,7 +57,6 @@ class PagingFragment : Fragment() {
                 viewLifecycleOwner.lifecycle,
                 Lifecycle.State.STARTED
             ).collectLatest { data ->
-                LogUtil.log("TAG", "setUpObserver: ")
                 pagingAdapter.submitData(data)
             }
         }
