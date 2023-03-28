@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.structure.R
 import com.example.structure.databinding.FragmentHomeBinding
 import com.example.structure.util.navi.HomeNavigationUI
@@ -44,6 +45,7 @@ class HomeFragment : Fragment() {
         val navHostFragment =
             childFragmentManager.findFragmentById(R.id.home_container) as NavHostFragment
         navController = navHostFragment.navController
+        binding.bottomNav.setupWithNavController(navController)
     }
 
     private fun setUpClickListener() {
