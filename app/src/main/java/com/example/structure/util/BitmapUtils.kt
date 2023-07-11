@@ -1,11 +1,14 @@
 package com.example.structure.util
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Matrix
+import android.content.Context
+import android.graphics.*
 import android.media.ExifInterface
+import android.os.Build
+import android.util.DisplayMetrics
+import android.util.Size
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowManager
 import java.io.ByteArrayOutputStream
 import java.net.URL
 import kotlin.jvm.Throws

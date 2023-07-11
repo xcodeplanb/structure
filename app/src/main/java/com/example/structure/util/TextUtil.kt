@@ -32,3 +32,10 @@ fun getDateText(dateTime: Long, timezoneText: String): String {
         }
     }
 }
+
+/**
+ * 공백 제거
+ */
+fun String.removeAllWhitespaces(): String {
+    return this.replace("\\s+".toRegex(), "")
+}
